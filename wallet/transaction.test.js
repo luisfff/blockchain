@@ -21,6 +21,19 @@ describe('Transaction',() => {
         .toEqual(amount);
     })
 
+    it('inputs the balance of the wallet', () => {
+        expect(transaction.input.amount).toEqual(wallet.balance);
+    })
+
+    it('it validates a valid transaction', () => {
+        expect(Transaction.verifyTransaction(transaction)).toBe(true);
+    })
+
+    it('it invalidates a corrupt transaction', () => {
+        transaction.outputs[0].amount = 500000000;
+        expect(Transaction.verifyTransaction(transaction)).toBe(false);
+    })
+
     describe('transaction with an amount that exceeds the balance', () => {
         beforeEach(() => {
             amount = 500000;
@@ -30,5 +43,24 @@ describe('Transaction',() => {
         it('does not create the transaction', () => {
             expect(transaction).toEqual(undefined);
         })
-    })
+    });
+    
+    describe('and updating a transaction', () => {
+        let nextAmount, nextRecipient;
+        beforeEach(() => {
+            nextAmount = 20;
+            nextRecipient = 'next Man';
+            transaction = transaction.update(wallet, nextRecipient, nextAmount);
+        });
+
+        it('subtracts the next amount from the senders output', () => {
+            expect(transaction.outputs.find(output=> output.address === wallet.publicKey).amount)
+            .toEqual(wallet.balance - amount - nextAmount);
+        })
+
+        it('it outputs amount for the next recipient', () => {
+            expect(transaction.outputs.find(output=> output.address === nextRecipient).amount)
+            .toEqual(nextAmount);
+        })
+    }) 
 })
