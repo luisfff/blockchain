@@ -1,12 +1,12 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express')
-const swaggerFile = require('../swagger_output.json')
+const swaggerFile = require('../../swagger_output.json')
 const bodyParser = require('body-parser');
 
-const Blockchain = require('../src/blockchain');
-const P2pServer = require('../src/app/p2p-server');
-const TransactionPool = require('../src/wallet/transaction-pool');
-const endpoints = require('../src/app/endpoints');
+const Blockchain = require('../blockchain');
+const P2pServer = require('./p2p-server');
+const TransactionPool = require('../wallet/transaction-pool');
+const endpoints = require('./endpoints');
 
 const HTTP_PORT =  process.env.HTTP_PORT || 3001;
 
