@@ -1,6 +1,6 @@
 //const Block = require('../block');
 // const Blockchain = require('./blockchain');
-const Wallet = require('./wallet');
+const Wallet = require('./src/wallet');
 const wallet = new Wallet();
 
 console.log(wallet.toString());

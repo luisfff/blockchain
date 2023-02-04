@@ -1,60 +1,25 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express')
+const swaggerFile = require('../swagger_output.json')
 const bodyParser = require('body-parser');
-const Blockchain = require('../blockchain');
+
+const Blockchain = require('../src/blockchain');
 const P2pServer = require('./p2p-server');
-const Wallet = require('../wallet');
-const TransactionPool = require('../wallet/transaction-pool');
-const Transaction = require('../wallet/transaction');
-const Miner = require('./miner');
+const TransactionPool = require('../src/wallet/transaction-pool');
+const endpoints = require('./endpoints');
 
 const HTTP_PORT =  process.env.HTTP_PORT || 3001;
 
 const app = express();
-const bc = new Blockchain();
-const wallet = new Wallet();
-const tp = new TransactionPool();
-const p2pServer = new P2pServer(bc, tp);
-const miner = new Miner(bc, tp, wallet, p2pServer);
+ const bc = new Blockchain();
+ const tp = new TransactionPool();
+ const p2pServer = new P2pServer(bc, tp);
 
+/* Middlewares */
 app.use(bodyParser.json());
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.get('/blocks', (req, res) => {
-    res.json(bc.chain);
-});
-
-app.post('/mine', (req, res) => {
-    const block = bc.addBlock(req.body.data);
-    console.log(`New block added: ${block.toString()}`);
-
-    p2pServer.syncChains();
-
-    res.redirect('/blocks');
-});
-
-app.get('/mine-transactions', (req, res) => {
-    const block = miner.mine();
-    console.log(`New block added: ${block.toString()}`);
-
-    res.redirect('/blocks');
-});
-
-
-app.get('/transactions', (req, res) => {
-    res.json(tp.transactions);
-});
-
-app.post('/transact', (req, res) => {
-    const {recipient, amount} = req.body;
-    const transaction = wallet.createTransaction(recipient, amount, bc, tp);
-
-    p2pServer.broadcastTransaction(transaction);
-
-    res.redirect('/transactions');
-});
-
-app.get('/public-key', (req, res) => {
-    res.json({publicKey : wallet.publicKey});
-});
+endpoints(app);
 
 app.listen(HTTP_PORT, () => console.log(`Listening on port ${HTTP_PORT}`));
 p2pServer.listen();
