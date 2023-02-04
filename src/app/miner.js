@@ -1,5 +1,5 @@
-const Wallet = require('../src/wallet');
-const Transaction = require('../src/wallet/transaction');
+const Wallet = require('../wallet');
+const Transaction = require('../wallet/transaction');
 class Miner{
     constructor(blockchain, transactionPool, wallet, p2pServer){
         this.blockchain = blockchain;
