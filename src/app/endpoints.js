@@ -29,6 +29,15 @@ module.exports = function (app) {
         res.redirect('/blocks');
     });
 
+    app.post('/mine', (req, res) => {
+        const block = bc.addBlock(req.body.data);
+        console.log(`New block added: ${block.toString()}`);
+
+        p2pServer.syncChains();
+
+        res.redirect('/blocks');
+    });
+
     app.get('/transactions', (req, res) => {
         res.json(tp.transactions);
     });
@@ -40,15 +49,6 @@ module.exports = function (app) {
         p2pServer.broadcastTransaction(transaction);
 
         res.redirect('/transactions');
-    });
-
-    app.post('/mine', (req, res) => {
-        const block = bc.addBlock(req.body.data);
-        console.log(`New block added: ${block.toString()}`);
-
-        p2pServer.syncChains();
-
-        res.redirect('/blocks');
     });
 
     app.get('/public-key', (req, res) => {

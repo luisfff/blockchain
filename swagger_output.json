@@ -51,10 +51,10 @@
               "type": "object",
               "properties": {
                 "recipient": {
-                  "example": "any"
+                  "example": "042bbc9396c0b1a5cf716631f864046f4ad72b4d7f2308277bf6172674f876a4b76e2f76f963894ad545c455b3fee81728e53469aaa1755b379533bbf1959b8bc2"
                 },
                 "amount": {
-                  "example": "any"
+                  "example": 500
                 }
               }
             }
@@ -73,8 +73,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                
                 "data": {
-                  "example": "any"
+                  "example": "new block"
                 }
               }
             }

@@ -36,7 +36,6 @@ class P2pServer {
         peers.forEach(peer => {
             //ws://localhost:5001
             const socket = new Websocket(peer);
-
             socket.on('open', () => this.connectSocket(socket));
         })
     }
@@ -87,10 +86,6 @@ class P2pServer {
             type: MESSAGE_TYPES.clear_transactions
         })));
     }
-
 }
 
 module.exports = P2pServer;
-//HTTP_PORT = 3002 P2P_PORT=5003 Peers = ws: //localhost:5001, ws://localhost:5002 npm run dev
-
-//HTTP_PORT=3002 P2P_PORT=5003 Peers=ws://localhost:5001  npm run dev

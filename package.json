@@ -7,6 +7,9 @@
     "start": "node ./src/app",
     "start-gendoc": "node swagger.js",
     "dev": "nodemon ./src/app",
+    "start-peer2": "node ./src/app P2P_PORT=5002 PEERS=ws://localhost:5001",
+    "dev-server": "cross-env P2P_PORT=5001 PEERS=ws://localhost:5002 node ./src/app",
+    "dev-client": "cross-env P2P_PORT=5002 PEERS=ws://localhost:5003 node ./src/app/p2p-server.js",
     "test": "jest --watchAll",
     "dev-test": "nodemon dev-test"
   },
@@ -25,9 +28,11 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "crypto-js": "^4.0.0",
+    "dotenv": "^16.0.3",
     "elliptic": "^6.5.4",
     "express": "^4.17.1",
     "uuid": "^8.3.2",
+    "websocket": "^1.0.34",
     "ws": "^7.4.3"
   }
 }
