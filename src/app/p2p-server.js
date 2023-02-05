@@ -34,7 +34,6 @@ class P2pServer {
 
     connectToPeers() {
         peers.forEach(peer => {
-            //ws://localhost:5001
             const socket = new Websocket(peer);
             socket.on('open', () => this.connectSocket(socket));
         })
