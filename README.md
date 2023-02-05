@@ -3,10 +3,13 @@ A blockchain application that implements peer-to-peer communication between node
 Cryptocurrency example
 
 ## Getting Started
-1. Clone this repository: https://github.com/luisfff/blockchain
-2. Install the project dependencies by running `npm install`
-3. Start the application by running `npm start`
-4. The application should now be running at `localhost:3001`
+Clone this repository: https://github.com/luisfff/blockchain
+
+Install the project dependencies: `npm install`
+
+Start the application: `npm start`
+
+The application should run at: `localhost:3001`
 
 ### Default configurations
 To starting the application in the configuration `HTTP_PORT=3001 P2P_PORT=5002` use the command  `npm run dev-server`
