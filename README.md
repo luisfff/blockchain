@@ -16,7 +16,11 @@ The application's API is documented using Swagger and can be accessed at `localh
 
 ## Features
 Implements a blockchain data structure
+
 Maintains the integrity of the blockchain data through peer-to-peer communication
+
 Supports multiple nodes running on different ports
+
 Can add transactions to the transaction pool
+
 Can mine new blocks and add them to the blockchain
